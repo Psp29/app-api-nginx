@@ -14,7 +14,7 @@ services:
   api:
     image: psp29/app-api
     build:
-      context: './assignment1DotnetSQLite'
+      context: './assignment1'
       dockerfile: Dockerfile
     expose:
        - 5000
