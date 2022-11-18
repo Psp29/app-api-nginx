@@ -11,7 +11,7 @@ pipeline
 		{
 			steps
 			{
-				git 'https://github.com/Psp29/app-api-nginx.git'
+				git url: 'https://github.com/Psp29/app-api-nginx.git'
 			}
 		}
 		stage('Login')
@@ -35,13 +35,6 @@ pipeline
 				sh 'docker-compose push'
 			}
 		}
-		// stage('Pull')
-		// {
-		// 	steps
-		// 	{
-		// 		sh 'docker pull psp29/jenkinsassignment2:latest'
-		// 	}
-		// }
 		stage('Deploy')
 		{
 			steps
