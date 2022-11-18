@@ -25,21 +25,21 @@ pipeline
 		{
 			steps
 			{
-				sh 'docker-compose build --pull'
+				sh 'docker compose build --pull'
 			}
 		}
 		stage('Push')
 		{
 			steps
 			{
-				sh 'docker-compose push'
+				sh 'docker compose push'
 			}
 		}
 		stage('Deploy')
 		{
 			steps
 			{
-				sh 'docker-compose up'
+				sh 'docker compose up'
 			}
 		}
 	}
