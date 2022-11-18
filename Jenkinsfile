@@ -7,13 +7,13 @@ pipeline
 	}
 	stages
 	{
-		stage('gitclone')
-		{
-			steps
-			{
-				git url: 'https://github.com/Psp29/app-api-nginx.git'
-			}
-		}
+		// stage('gitclone')
+		// {
+		// 	steps
+		// 	{
+		// 		git url: 'https://github.com/Psp29/app-api-nginx.git'
+		// 	}
+		// }
 		stage('Login')
 		{
 			steps
@@ -25,7 +25,7 @@ pipeline
 		{
 			steps
 			{
-				sh 'docker compose up --build'
+				sh 'docker compose up -d --build'
 			}
 		}
 		stage('Push')
