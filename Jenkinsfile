@@ -25,7 +25,6 @@ pipeline
 		{
 			steps
 			{
-                sh 'cd default'
 				sh 'docker-compose build --pull'
 			}
 		}
