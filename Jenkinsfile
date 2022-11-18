@@ -25,7 +25,7 @@ pipeline
 		{
 			steps
 			{
-				sh 'docker compose build --pull'
+				sh 'docker compose up --build'
 			}
 		}
 		stage('Push')
@@ -35,13 +35,13 @@ pipeline
 				sh 'docker compose push'
 			}
 		}
-		stage('Deploy')
-		{
-			steps
-			{
-				sh 'docker compose up'
-			}
-		}
+		// stage('Deploy')
+		// {
+		// 	steps
+		// 	{
+		// 		sh 'docker compose up'
+		// 	}
+		// }
 	}
 post
 	{
