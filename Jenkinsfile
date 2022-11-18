@@ -11,7 +11,7 @@ pipeline
 		{
 			steps
 			{
-				git 'https://github.com/Psp29/assignment1DotnetSQLite.git'
+				git 'https://github.com/Psp29/app-api-nginx.git'
 			}
 		}
 		stage('Build')
