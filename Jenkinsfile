@@ -7,13 +7,6 @@ pipeline
 	}
 	stages
 	{
-		// stage('gitclone')
-		// {
-		// 	steps
-		// 	{
-		// 		git url: 'https://github.com/Psp29/app-api-nginx.git'
-		// 	}
-		// }
 		stage('Login')
 		{
 			steps
@@ -21,11 +14,19 @@ pipeline
 				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
+		stage('Prune Docker Data')
+		{
+			steps
+			{
+				sh 'docker system prune -a --volumes -f'
+			}
+		}
 		stage('Build')
 		{
 			steps
 			{
 				sh 'docker compose up -d --build'
+				sh 'docker compose ps'
 			}
 		}
 		stage('Push')
