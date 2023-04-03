@@ -1,54 +1,35 @@
 pipeline
 {
-	agent {label 'jenkins-slave-1'}
-	environment
-	{
-		DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+	agent { docker { image 'mcr.microsoft.com/dotnet/sdk:3.1' } }
+	stages {
+		stage('Restoring') {
+			steps {
+				sh 'dotnet restore'
+				// sh 'npm cache clean --force'
+			}
+		}
+		stage('Installing Depedencies...') {
+			steps {
+				// sh 'cd products_admin'
+				sh 'dotnet tool install --global dotnet-ef --version 3.1'
+				sh 'export PATH=$PATH:/root/.dotnet/tools'
+			}
+		}
+		stage('DB Migration') {
+			steps {
+				sh 'dotnet ef database update'
+			}
+		}
+		stage('Building the code...') {
+			steps {
+				sh 'dotnet publish -c Release -o out'
+			}
+		}
 	}
-	stages
-	{
-		stage('Login')
-		{
-			steps
-			{
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-			}
-		}
-		stage('Prune Docker Data')
-		{
-			steps
-			{
-				sh 'docker system prune -a --volumes -f'
-			}
-		}
-		stage('Build')
-		{
-			steps
-			{
-				sh 'docker compose up -d --build'
-				sh 'docker compose ps'
-			}
-		}
-		stage('Push')
-		{
-			steps
-			{
-				sh 'docker compose push'
-			}
-		}
-		// stage('Deploy')
-		// {
-		// 	steps
-		// 	{
-		// 		sh 'docker compose up'
-		// 	}
-		// }
-	}
-post
-	{
-		always
-		{
-			sh 'docker logout'
+	post {
+		always {
+			archiveArtifacts artifacts: 'out/*', 
+			onlyIfSuccessful: true
 		}
 	}
 }
