@@ -12,6 +12,12 @@ pipeline
 				sh 'dotnet restore'
 			}
 		}
+		stage('Build and Clean the project') {
+			steps {
+				sh 'dotnet build'
+				sh 'dotnet clean'
+			}
+		}
 		stage('Installing Depedencies...') {
 			steps {
 				// sh 'cd products_admin'
