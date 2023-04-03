@@ -20,11 +20,11 @@ pipeline
 				sh 'export PATH=$PATH:/root/.dotnet/tools'
 			}
 		}
-		stage('DB Migration') {
-			steps {
-				sh 'dotnet-ef database update'
-			}
-		}
+		// stage('DB Migration') {
+		// 	steps {
+		// 		sh 'dotnet-ef database update'
+		// 	}
+		// }
 		stage('Building the code...') {
 			steps {
 				sh 'dotnet publish -c Release -o out'
