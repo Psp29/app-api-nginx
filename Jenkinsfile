@@ -22,7 +22,7 @@ pipeline
 		}
 		stage('DB Migration') {
 			steps {
-				sh 'dotnet ef database update'
+				sh 'dotnet-ef database update'
 			}
 		}
 		stage('Building the code...') {
