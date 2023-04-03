@@ -33,6 +33,7 @@ pipeline
 		stage('Building the code...') {
 			steps {
 				sh 'dotnet publish -c Release -o out'
+				sh 'cp Users.db out'
 			}
 		}
 	}
